@@ -1,6 +1,6 @@
 ## Dependencies
 
-Requires python 3.6
+Requires `python 3.6`
 
 ## Usage
 
