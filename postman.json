@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "87aedab8-e7e3-4775-b14d-97f4fc518017",
+		"name": "CodeClan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Basket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6170152a-3af5-49d0-b7b7-ffb29c9522c6",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"BASKET_ID\", jsonData.basket_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/basket/create/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get total",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f274c8e-7c18-413b-9900-96b3885ab9b4",
+						"exec": [
+							"pm.test(\"Basket total is 0\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"0.00\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add single product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7214ed0f-f617-4505-972b-3ae3e958f2f8",
+						"exec": [
+							"pm.test(\"Basket total is 0\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"1.99\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "product",
+							"value": "1",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/add-item/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						"add-item",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add multiple products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70615b16-faea-49e0-9c5a-c78b52009aca",
+						"exec": [
+							"pm.test(\"Basket total is 5.97\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"5.97\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "basket",
+							"value": "{{BASKET_ID}}",
+							"type": "text"
+						},
+						{
+							"key": "product",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "2",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/add-item/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						"add-item",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add multiple second product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70615b16-faea-49e0-9c5a-c78b52009aca",
+						"exec": [
+							"pm.test(\"Basket total is 5.97\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"13.44\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "basket",
+							"value": "{{BASKET_ID}}",
+							"type": "text"
+						},
+						{
+							"key": "product",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/add-item/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						"add-item",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get total 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f274c8e-7c18-413b-9900-96b3885ab9b4",
+						"exec": [
+							"pm.test(\"Basket total is 11.45\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"13.44\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove single product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25691a88-ebd0-4574-b1a2-ab5f799802ae",
+						"exec": [
+							"pm.test(\"Basket total is 11.45\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"11.45\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "product",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/remove-item/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						"remove-item",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove multiple products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21d1efa7-e3b7-493d-bb7a-113ea4aa6a9c",
+						"exec": [
+							"pm.test(\"Basket total is 6.47\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"6.47\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "product",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "2",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/remove-item/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						"remove-item",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Empty basket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ca6ff22-79d1-4480-a50a-7378f3a9e8bb",
+						"exec": [
+							"pm.test(\"Basket total is 0\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"0.00\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/empty/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						"empty",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get final total",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f274c8e-7c18-413b-9900-96b3885ab9b4",
+						"exec": [
+							"pm.test(\"Basket total is 0\", () => {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.total_price).to.eql(\"0.00\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/basket/{{BASKET_ID}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"basket",
+						"{{BASKET_ID}}",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
