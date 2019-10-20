@@ -4,10 +4,11 @@ Requires `python 3.6`
 
 ## Usage
 
-1. Clone the repo
-2. cd into the repo directory
+1. `git clone https://github.com/RossLote/vigilant-enigma.git`
+2. `cd vigilant-enigma`
 3. `pip install -r requirements.txt`
-4. `python3 manage.py test`
+4. `python3 manage.py migrate`
+5. `python3 manage.py test`
 
 ### Postman tests
 
